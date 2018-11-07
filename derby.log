@@ -1,6 +1,6 @@
 ----------------------------------------------------------------
-Wed Nov 07 15:30:55 MST 2018:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-0166-f04c-c5fb-000002d694f0 
+Wed Nov 07 16:35:30 MST 2018:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-0166-f087-e4b7-000004e74dd0 
 on database directory /Users/dinarabanal/Desktop/bootcamp/projects/qod/qod_db with class loader sun.misc.Launcher$AppClassLoader@18b4aac2 
 Loaded from file:/Users/dinarabanal/.m2/repository/org/apache/derby/derby/10.14.2.0/derby-10.14.2.0.jar
 java.vendor=Oracle Corporation

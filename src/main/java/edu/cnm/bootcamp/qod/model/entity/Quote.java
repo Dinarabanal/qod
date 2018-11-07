@@ -39,7 +39,7 @@ public class Quote {
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
-  @Column(name = "Quote_id, nullable = false, updatable = false")
+  @Column(name = "quote_id", nullable = false, updatable = false)
   private long id;
 
   //date/time stamp  @nulljava bean you can not store a null in db
