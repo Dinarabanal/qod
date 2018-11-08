@@ -1,8 +1,10 @@
 package edu.cnm.bootcamp.qod.controller;
 
 
+import com.fasterxml.jackson.annotation.JsonView;
 import edu.cnm.bootcamp.qod.model.dao.QuoteRepository;
 import edu.cnm.bootcamp.qod.model.entity.Quote;
+import edu.cnm.bootcamp.qod.view.Nested;
 import java.util.List;
 import java.util.NoSuchElementException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,16 +24,13 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 
-@ExposesResourceFor(Quote.class)
+
 
 @RestController //controller where return value is assumed to be body back to client
 @RequestMapping("/quotes")
 public class QuoteController {
 
-
   //controller needs access to db and gets service class
-
-
 
   private QuoteRepository quoteRepository;
 
@@ -45,37 +44,33 @@ public class QuoteController {
     return quoteRepository.findAllByOrderByText();
   }
 
-  @GetMapping(value = "search", produces = MediaType.APPLICATION_JSON_VALUE)
-  public List<Quote> search(@RequestParam(value = "text", required = false) String text,
-      @RequestParam(value = "source", required = false) String source) {
-    if (text == null && source == null) {
-      return list();
-    }
-    if (text == null) {
-      return quoteRepository.findAllBySourceContainingOrderBySourceAscTextAsc(source);
-    }
-    if (source == null) {
-      return quoteRepository.findAllByTextContainingOrderByText(text);
-    }
-    return quoteRepository.findAllBySourceContainingAndTextContainingOrderBySourceAscTextAsc(source, text);
-  }
+ // @GetMapping(value = "search", produces = MediaType.APPLICATION_JSON_VALUE)
+ // public List<Quote> search(@RequestParam(value = "text", required = false) String text,
+ //     @RequestParam(value = "source", required = false) String source) {
+ //   if (text == null && source == null) {
+ //     return list();
+ //   }
+ //   if (text == null) {
+ //     return quoteRepository.findAllBySourceContainingOrderBySourceAscTextAsc(source);
+ //   }
+ //   if (source == null) {
+ //     return quoteRepository.findAllByTextContainingOrderByText(text);
+ //   }
+ //   return quoteRepository.findAllBySourceContainingAndTextContainingOrderBySourceAscTextAsc(source, text);
+ // }
     @GetMapping(value = "{quoteId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @JsonView(Nested.class)
     public Quote get(@PathVariable("quoteId") long quoteId) {
       return quoteRepository.findById(quoteId).get();
 
     }
 
     @GetMapping(value = "random", produces = MediaType.APPLICATION_JSON_VALUE)
+    @JsonView(Nested.class)
     public Quote random() {
       return quoteRepository.findRandom().get();
     }
 
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
-        produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Quote> post (@RequestBody Quote quote){
-      quoteRepository.save(quote);
-      return ResponseEntity.created(null).body(quote);
-    }
     @DeleteMapping(value = "{quoteId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable("quoteId") long quoteId){
