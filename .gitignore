@@ -25,4 +25,4 @@
 /.nb-gradle/
 
 /qod_db/
-/derby.lob
+/derby.log
