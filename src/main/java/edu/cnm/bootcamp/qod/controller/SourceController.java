@@ -4,8 +4,10 @@ import com.fasterxml.jackson.annotation.JsonView;
 import edu.cnm.bootcamp.qod.model.dao.SourceRepository;
 import edu.cnm.bootcamp.qod.model.entity.Source;
 import edu.cnm.bootcamp.qod.view.Nested;
+import java.rmi.server.UID;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.ExposesResourceFor;
 import org.springframework.http.HttpStatus;
@@ -60,13 +62,13 @@ public class SourceController  {
 
   @GetMapping(value = "{sourceId}", produces = MediaType.APPLICATION_JSON_VALUE)
   @JsonView(Nested.class)
-  public Source get(@PathVariable("sourceId") long sourceId) {
+  public Source get(@PathVariable("sourceId") UUID sourceId) {
     return sourceRepository.findById(sourceId).get();
   }
 
   @DeleteMapping(value = "{sourceId}")
   @ResponseStatus(HttpStatus.NO_CONTENT)
-  public void delete(@PathVariable("sourceId") long sourceId) {
+  public void delete(@PathVariable("sourceId") UUID sourceId) {
     sourceRepository.delete(get(sourceId));
   }
 
